@@ -1,0 +1,17 @@
+{
+  "name": "todo_04_02",
+  "version": "1.0.0",
+  "description": "\"todo\"",
+  "main": "code.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bulma": "^0.8.0"
+  },
+  "dependencies": {
+    "font-awesome": "^4.7.0"
+  }
+}
