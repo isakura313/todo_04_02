@@ -1,6 +1,11 @@
 import ItemDeal from "./ItemDeal";
 
-import {motiv_arr, ImportantArr, backgroundColor, MonthArray } from "./data.js"
+import anime from "./node_modules/animejs/lib/anime.min.js"
+const json = require("./fixtures.json")
+
+console.table(json)
+
+const {motiv_arr,ImportantArr, backgroundColor, MonthArray } = json
 
 const add_button = document.querySelector(".button-plus")
 const input = document.querySelector("input")
@@ -99,7 +104,7 @@ root.addEventListener("click", (e)=>{
     setTimeout(()=>{
 
         localStorage.removeItem(deal.id)
-        
+
         deal.remove();
     }, 300)
 })
