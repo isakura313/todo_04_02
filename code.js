@@ -2,7 +2,7 @@ import ItemDeal from "./ItemDeal";
 import anime from "./node_modules/animejs/lib/anime.min";
 const json = require("./fixtures.json");
 
-console.table(json);
+// console.table(json);
 
 const {motiv_arr, ImportantArr, backgroundColor, MonthArray, MonsterArray} = json;
 
@@ -16,6 +16,13 @@ const monster = document.querySelector(".monster");
 
 function getRand(arr){
     // хорошо бы модифицировать в уникальный рандом
+    //for uniq random should create 2 more variable (for phrase and monster): pre_monster and pre_phrase
+    /*
+        while(pre_rand === rand_num) {
+            rand_num = Math.floor(Math.random() * arr.length);
+        };
+        return rand_num;
+     */
     let rand_num = Math.floor(Math.random() * arr.length);
     return rand_num;
 }
@@ -34,19 +41,26 @@ anime({
     direction: 'alternate',
     loop: true,
     scale: 1.5,
-    rotate: 360
+    rotate: 360,
 });
 
 function changePhrase(){
-    document.querySelector("q").innerHTML = motiv_arr[getRand(motiv_arr)];
-    // добавить сда анимации, с которой эта цитата появляется
+    let phrase = document.querySelector("q");
+    //выцветание цитаты не удалось, т.к. оно начинается после изменение текста на новый(даже при использование setTimeout)
+    phrase.innerHTML = motiv_arr[getRand(motiv_arr)];
+    anime({
+    targets: phrase,
+    opacity: [0, 1],
+    easing: 'easeInOutSine',
+    duration: 2000,
+    });
 }
 
-setInterval(changePhrase, 2000);
+setInterval(changePhrase, 4000);
 
 function createItem(){
     let text = input.value;
-    if(text == ''){
+    if(text === ''){
         return; // return обрывает всю работу нашей функции
     }
 
@@ -71,10 +85,15 @@ function DrawItem(item){
         </span>
     </button>
 </div>`);
-
+    anime({
+        targets: document.getElementById(+item.createdAt),
+        opacity: [0, 1],
+        easing: 'easeInOutSine',
+        duration: 1000,
+    });
 }
 
-(function DrawOnLoad(){
+function DrawOnLoad(){
     for(let i = 0; i < localStorage.length; i++){
         let lk_key = localStorage.key(i);  // получить ключ по номеру
         let content = localStorage.getItem(lk_key);
@@ -83,8 +102,9 @@ function DrawItem(item){
         item.createdAt = new Date(tempo_date);
         DrawItem(item);
     }
-})();
+}
 
+DrawOnLoad();
 
 
 add_button.addEventListener("click", createItem);
@@ -101,10 +121,23 @@ root.addEventListener('click', (e) => {
         let deal = e.target.closest('.wrap-task');
 
         setTimeout(() => {
+            anime({
+                targets: document.getElementById(deal.id),
+                opacity: [1, 0],
+                easing: 'easeInOutSine',
+                duration: 1000,
+            });
             localStorage.removeItem(deal.id);
-            deal.remove();
+            setTimeout(()=>{ deal.remove(); } , 1000);
         }, 200);
     }
+    // //need to change className !!!
+    // if(e.target.className === 'button is-dark is-medium is-fullwidth button-clear'
+    //     || e.target.closest('.button-clear') !== null){
+    //     console.log(e.target);
+    //     localStorage.clear();
+    //     DrawOnLoad();
+    // }
 });
 
 function ChangeColorEl(el) {
@@ -126,8 +159,8 @@ function ChangeColorEl(el) {
 
 window.onload = () => {
     ChangeColorEl(select);
-}
+};
 
 select.onchange = () => {
     ChangeColorEl(select);
-}
+};
