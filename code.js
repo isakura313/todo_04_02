@@ -1,11 +1,11 @@
 import ItemDeal from "./ItemDeal";
 
 import anime from "./node_modules/animejs/lib/anime.min.js"
-const json = require("./fixtures.json")
+const json = require("./fixtures.json") // подтягиваются основные данные
 
-console.table(json)
+// console.table(json)
 
-const {motiv_arr,ImportantArr, backgroundColor, MonthArray } = json
+const {motiv_arr,ImportantArr, backgroundColor, MonthArray } = json // здесь у нас происходит деструктурализация
 
 const add_button = document.querySelector(".button-plus")
 const input = document.querySelector("input")
@@ -53,7 +53,7 @@ function createItem(){
 function DrawItem(item){
        root.insertAdjacentHTML('afterBegin', `<div class="wrap-task field is-grouped" id='${+item.createAt}'>
     <button class="has-text-white button is-medium is-fullwidth ${backgroundColor[item.color]}">  ${item.text}
-    <span>${item.createAt.getDate()} ${MonthArray[item.createAt.getMonth()]} </span>
+    <span style="margin-left:100px" class="has-text-weight-bold">${item.createAt.getDate()} ${MonthArray[item.createAt.getMonth()]} </span>
 
     </button>
     <button class="btn-delete button is-danger is-medium is-outlined">

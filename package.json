@@ -12,6 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "bulma": "^0.8.0",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.2.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   },
