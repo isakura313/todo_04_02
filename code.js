@@ -83,9 +83,6 @@ function DrawItem(item){
 
 
 
-
-
-
 add_button.addEventListener("click", createItem);
 
 input.addEventListener("keypress", (e)=>{
